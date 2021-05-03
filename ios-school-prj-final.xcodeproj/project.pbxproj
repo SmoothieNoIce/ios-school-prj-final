@@ -16,6 +16,10 @@
 		473D0B962626D3E00023A94F /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 473D0B952626D3E00023A94F /* FirebaseStorageSwift-Beta */; };
 		473D0B982626D3E00023A94F /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 473D0B972626D3E00023A94F /* FirebaseFirestoreSwift-Beta */; };
 		473D0B9B2626D54D0023A94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0B9A2626D54D0023A94F /* AppDelegate.swift */; };
+		47ECE35A263FB6DF005A2B2C /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE359263FB6DF005A2B2C /* LoginPage.swift */; };
+		47ECE35D263FB70C005A2B2C /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35C263FB70C005A2B2C /* SignUpPage.swift */; };
+		47ECE360263FBB7B005A2B2C /* CharacterSelectPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */; };
+		47ECE364263FBBA5005A2B2C /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE363263FBBA5005A2B2C /* AppController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		473D0B872626D07E0023A94F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		473D0B8E2626D0FB0023A94F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		473D0B9A2626D54D0023A94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		47ECE359263FB6DF005A2B2C /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		47ECE35C263FB70C005A2B2C /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
+		47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectPage.swift; sourceTree = "<group>"; };
+		47ECE363263FBBA5005A2B2C /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +71,15 @@
 		473D0B7D2626D07C0023A94F /* ios-school-prj-final */ = {
 			isa = PBXGroup;
 			children = (
+				47ECE362263FBB8F005A2B2C /* Util */,
+				47ECE358263FB6AB005A2B2C /* Page */,
 				473D0B7E2626D07C0023A94F /* ios_school_prj_finalApp.swift */,
 				473D0B9A2626D54D0023A94F /* AppDelegate.swift */,
 				473D0B802626D07C0023A94F /* ContentView.swift */,
 				473D0B822626D07E0023A94F /* Assets.xcassets */,
 				473D0B872626D07E0023A94F /* Info.plist */,
 				473D0B842626D07E0023A94F /* Preview Content */,
+				47ECE363263FBBA5005A2B2C /* AppController.swift */,
 			);
 			path = "ios-school-prj-final";
 			sourceTree = "<group>";
@@ -79,6 +90,23 @@
 				473D0B852626D07E0023A94F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		47ECE358263FB6AB005A2B2C /* Page */ = {
+			isa = PBXGroup;
+			children = (
+				47ECE359263FB6DF005A2B2C /* LoginPage.swift */,
+				47ECE35C263FB70C005A2B2C /* SignUpPage.swift */,
+				47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */,
+			);
+			path = Page;
+			sourceTree = "<group>";
+		};
+		47ECE362263FBB8F005A2B2C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,9 +187,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47ECE35A263FB6DF005A2B2C /* LoginPage.swift in Sources */,
+				47ECE35D263FB70C005A2B2C /* SignUpPage.swift in Sources */,
+				47ECE360263FBB7B005A2B2C /* CharacterSelectPage.swift in Sources */,
 				473D0B9B2626D54D0023A94F /* AppDelegate.swift in Sources */,
 				473D0B812626D07C0023A94F /* ContentView.swift in Sources */,
 				473D0B7F2626D07C0023A94F /* ios_school_prj_finalApp.swift in Sources */,
+				47ECE364263FBBA5005A2B2C /* AppController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

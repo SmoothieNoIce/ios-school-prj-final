@@ -12,7 +12,7 @@ struct ios_school_prj_finalApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppController()
         }
     }
 }
