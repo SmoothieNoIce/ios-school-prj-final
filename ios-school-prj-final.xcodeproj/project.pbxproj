@@ -20,6 +20,9 @@
 		47ECE35D263FB70C005A2B2C /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35C263FB70C005A2B2C /* SignUpPage.swift */; };
 		47ECE360263FBB7B005A2B2C /* CharacterSelectPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */; };
 		47ECE364263FBBA5005A2B2C /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE363263FBBA5005A2B2C /* AppController.swift */; };
+		47ECE368264111D0005A2B2C /* SnapShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE367264111D0005A2B2C /* SnapShot.swift */; };
+		47ECE36B264155D3005A2B2C /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE36A264155D3005A2B2C /* HomePage.swift */; };
+		47ECE37226415F0F005A2B2C /* UserInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE37126415F0F005A2B2C /* UserInfoPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		47ECE35C263FB70C005A2B2C /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectPage.swift; sourceTree = "<group>"; };
 		47ECE363263FBBA5005A2B2C /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		47ECE367264111D0005A2B2C /* SnapShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapShot.swift; sourceTree = "<group>"; };
+		47ECE36A264155D3005A2B2C /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
+		47ECE37126415F0F005A2B2C /* UserInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,8 @@
 				47ECE359263FB6DF005A2B2C /* LoginPage.swift */,
 				47ECE35C263FB70C005A2B2C /* SignUpPage.swift */,
 				47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */,
+				47ECE36A264155D3005A2B2C /* HomePage.swift */,
+				47ECE37126415F0F005A2B2C /* UserInfoPage.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";
@@ -105,6 +113,7 @@
 		47ECE362263FBB8F005A2B2C /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				47ECE367264111D0005A2B2C /* SnapShot.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -188,6 +197,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				47ECE35A263FB6DF005A2B2C /* LoginPage.swift in Sources */,
+				47ECE36B264155D3005A2B2C /* HomePage.swift in Sources */,
+				47ECE368264111D0005A2B2C /* SnapShot.swift in Sources */,
+				47ECE37226415F0F005A2B2C /* UserInfoPage.swift in Sources */,
 				47ECE35D263FB70C005A2B2C /* SignUpPage.swift in Sources */,
 				47ECE360263FBB7B005A2B2C /* CharacterSelectPage.swift in Sources */,
 				473D0B9B2626D54D0023A94F /* AppDelegate.swift in Sources */,
