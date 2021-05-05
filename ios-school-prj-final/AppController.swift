@@ -24,7 +24,7 @@ enum Gender:Int,Decodable{
     case Female = 2
 }
 
-class User: ObservableObject,Codable, Identifiable {
+class GameUser: ObservableObject,Codable, Identifiable {
     
     
     required init(from decoder: Decoder) throws {

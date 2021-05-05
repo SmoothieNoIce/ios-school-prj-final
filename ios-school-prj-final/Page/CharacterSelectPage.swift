@@ -71,7 +71,10 @@ struct CharacterSelectPage: View {
                             }
                             .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
                             .foregroundColor(.white)
-                            .background(Color(.systemGreen))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 5)
+                            )
                             .cornerRadius(10)
                         }
                     })
@@ -145,11 +148,15 @@ struct CharacterSelectPage: View {
                         currentPet = Int.random(in: 0..<pets.count)
                     }) {
                         HStack {
+                            Image(systemName: "die.face.3")
                             Text("隨機")
                         }
-                        .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                        .padding(.trailing,20).padding(.leading,20).padding(.top,10).padding(.bottom,10)
                         .foregroundColor(.white)
-                        .background(Color(.systemGreen))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 5)
+                        )
                         .cornerRadius(10)
                     }
                 }.offset(x: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)

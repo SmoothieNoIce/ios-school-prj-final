@@ -29,7 +29,9 @@ struct UserInfoPage: View {
     
     var body: some View {
         ZStack{
-            Color.black.edgesIgnoringSafeArea(.all)
+            Image("backgroundimg")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             VStack{
                 
                 VStack(alignment: .leading, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
@@ -179,7 +181,7 @@ struct UserInfoPage: View {
                         guard let snapshot = snapshot else { return }
                         
                         let datas = snapshot.documents.compactMap { snapshot in
-                            try? snapshot.data(as: User.self)
+                            try? snapshot.data(as: GameUser.self)
                         }
                         money = datas[0].money
                         age = datas[0].age
