@@ -33,95 +33,102 @@ struct SignUpPage: View {
     
     
     var body: some View {
-        VStack{
-            Text("註冊").font(.system(size: 40)).padding(40)
-            Text(alertText).foregroundColor(.red)
-            Image(uiImage: characterImage).resizable()
-                .scaledToFit().frame(width: 70,height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            Button(action: {
-                currentPage = Page.CHARACTER_SELECT_PAGE
-            }) {
-                HStack {
-                    Text("選擇角色")
-                }
-                .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
-                .foregroundColor(.white)
-                .background(Color(.systemPink))
-                .cornerRadius(10)
-                .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }.padding().sheet(isPresented: $isPresentCharacterSelect,onDismiss:{
-                currentPage = Page.SIGN_UP_PAGE
-            }, content: {
-                CharacterSelectPage(characterImage: $characterImage, currentPage:$currentPage)
-            })
-            TextField("name", text: $name)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            TextField("email", text: $email)
-                .autocapitalization(.none)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            SecureField("password", text: $password)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .frame(width: 300, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            
-            
-            HStack{
-                Text("年齡")
-                Slider(value: $age, in: 0...100, step: 1)
-                Text(String(Int(age)))
-            }.padding(20).frame(width: 300, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-            
-            
-            
-            HStack(spacing: 20) {
-                Picker(selection: $selectedIndex, label: Text("性別")) {
-                    ForEach(roles.indices) { (index) in
-                        switch(roles[index]){
-                        case .None:
-                            Text("無")
-                        case .Male:
-                            Text("男生")
-                        case .Female:
-                            Text("女生")
+        ZStack{            
+            VStack{
+                Text("註冊").font(.system(size: 40)).padding(40)
+                Text(alertText).foregroundColor(.red)
+                Image(uiImage: characterImage).resizable()
+                    .scaledToFit().frame(width: 70,height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Button(action: {
+                    currentPage = Page.CHARACTER_SELECT_PAGE
+                }) {
+                    HStack {
+                        Text("選擇角色")
+                    }
+                    .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                    .foregroundColor(.white)
+                    .background(Color(.systemPink))
+                    .cornerRadius(10)
+                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                }.padding().sheet(isPresented: $isPresentCharacterSelect,onDismiss:{
+                    currentPage = Page.SIGN_UP_PAGE
+                }, content: {
+                    CharacterSelectPage(characterImage: $characterImage, currentPage:$currentPage)
+                })
+                TextField("name", text: $name)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                    .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                TextField("email", text: $email)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                    .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                SecureField("password", text: $password)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                    .frame(width: 300, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                
+                
+                HStack{
+                    Text("年齡")
+                    Slider(value: $age, in: 0...100, step: 1)
+                    Text(String(Int(age)))
+                }.padding(20).frame(width: 300, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                
+                
+                
+                HStack(spacing: 20) {
+                    Picker(selection: $selectedIndex, label: Text("性別")) {
+                        ForEach(roles.indices) { (index) in
+                            switch(roles[index]){
+                            case .None:
+                                Text("無")
+                            case .Male:
+                                Text("男生")
+                            case .Female:
+                                Text("女生")
+                            }
                         }
+                    }.pickerStyle(SegmentedPickerStyle())
+                }.frame(width: 300,height: 50,alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).clipped()
+                
+                HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 3, content: {
+                    Button(action: {
+                        alertText = ""
+                        if characterImage == UIImage(){
+                            alertText = "未選取角色"
+                            return
+                        }
+                        uploadPhoto(image: characterImage) { result in
+                            switch result {
+                            case .success(let url):
+                                signUp(imgUrl: url)
+                            case .failure(let error):
+                               print(error)
+                            }
+                        }
+                       
+                    }) {
+                        HStack {
+                            Text("送出")
+                        }
+                        .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                        .foregroundColor(.white)
+                        .background(Color(.systemPink))
+                        .cornerRadius(10)
                     }
-                }
-            }.frame(width: 300,height: 50,alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).clipped()
-            
-            Button(action: {
-                alertText = ""
-                uploadPhoto(image: characterImage) { result in
-                    switch result {
-                    case .success(let url):
-                        signUp(imgUrl: url)
-                    case .failure(let error):
-                       print(error)
-                    }
-                }
-               
-            }) {
-                HStack {
-                    Text("送出")
-                }
-                .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
-                .foregroundColor(.white)
-                .background(Color(.systemPink))
-                .cornerRadius(10)
-                .frame(width: 200, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }.padding()
-            
+                })
+                
+            }
         }
+        
     }
     
     func signUp(imgUrl:URL){
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             guard let user = result?.user,
                   error == nil else {
-                print(error?.localizedDescription)
                 alertText = error!.localizedDescription
                 return
             }
@@ -130,14 +137,12 @@ struct SignUpPage: View {
             changeRequest.displayName = name
             changeRequest.commitChanges(completion: { error in
                guard error == nil else {
-                   print(error?.localizedDescription)
                     alertText = error!.localizedDescription
                    return
                }
             })
-            var data : User = User(uid:user.uid,age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
+            let data : User = User(uid:user.uid,age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
             data.createUser()
-            print(user.email, user.uid)
             currentPage = Page.HOME_PAGE
         }
     }

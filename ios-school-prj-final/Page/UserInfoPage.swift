@@ -9,6 +9,10 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseStorageSwift
+import FirebaseFirestoreSwift
+import Firebase
+import Kingfisher
+
 
 struct UserInfoPage: View {
     @Binding var currentPage : Page
@@ -16,72 +20,189 @@ struct UserInfoPage: View {
     @State var uid:String = ""
     @State var name:String = ""
     @State var email:String = ""
-    @State var characterImage : UIImage = UIImage()
-    @State var money:String = ""
+    @State var characterImage : URL?
+    @State var money:Int = 0
     @State var age:Int = 0
-    @State var gender = Gender.None
+    @State var gender : String = ""
     @State var created_at = Date()
     @State var updated_at = Date()
-
+    
     var body: some View {
-        VStack{
-            Text("使用者資訊").font(.system(size: 40)).padding(40)
-            Text(alertText).foregroundColor(.red)
-            Image(uiImage: characterImage).resizable()
-                .scaledToFit().frame(width: 70,height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            Text("uid：\(uid)")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .padding()
-                .frame(width: 300.0, height: 60.0,alignment: .leading)
-                .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-            Text("名字：\(name)")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .padding()
-                .frame(width: 300.0, height: 60.0,alignment: .leading)
-                .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-            Text("Email：\(email)")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .padding()
-                .frame(width: 300.0, height: 60.0,alignment: .leading)
-                .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-            Text("Money：\(money)")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .padding()
-                .frame(width: 300.0, height: 60.0,alignment: .leading)
-                .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-            Text("Money：\(age)")
-                .foregroundColor(Color.black)
-                .multilineTextAlignment(.leading)
-                .padding()
-                .frame(width: 300.0, height: 60.0,alignment: .leading)
-                .fixedSize()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-        }.onAppear(perform: {
-            if let user = Auth.auth().currentUser {
-                uid = String(user.uid ?? "")
-                name = String(user.displayName ?? "")
-                email = String(user.email ?? "")
-                let fileReference = Storage.storage().reference().child(user.photoURL?.path ?? "")
-                            fileReference.getData(maxSize: 10 * 1024 * 1024) { result in
-                                switch result {
-                                case .success(let data):
-                                    characterImage = UIImage(data: data)!
-                                case .failure(let error):
-                                    print(error)
-                                }
-                            }
-            } else {
-                print("not login")
-            }
-        })
+        ZStack{
+            Color.black.edgesIgnoringSafeArea(.all)
+            VStack{
+                
+                VStack(alignment: .leading, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+                    Text("玩家資訊").padding(18).font(.system(size: 17))
+                }).frame(maxWidth: .infinity,alignment: .leading).background(Color(.white))
+                
+                
+                ZStack{
+                    KFImage(characterImage)
+                        .resizable().scaledToFit().frame(width: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        )
+                }.padding(40)
+                
+                Spacer()
+                
+                ScrollView{
+                    VStack{
+                        HStack{
+                            Image(systemName: "grid").padding(.leading,20)
+                            Text("uid：\(uid)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }
+                        .padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        
+                        HStack{
+                            Image(systemName: "person.crop.circle").padding(.leading,20)
+                            Text("名字：\(name)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }
+                        .padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "envelope").padding(.leading,20)
+                            Text("電子郵件：\(email)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "dollarsign.circle").padding(.leading,20)
+                            Text("金錢：\(money)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "figure.walk").padding(.leading,20)
+                            Text("年齡：\(age)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "face.smiling").padding(.leading,20)
+                            Text("性別：\(gender)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "clock").padding(.leading,20)
+                            Text("創建時間：\(created_at)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                        
+                        HStack{
+                            Image(systemName: "clock").padding(.leading,20)
+                            Text("創建時間：\(updated_at)")
+                                .multilineTextAlignment(.leading)
+                                .fixedSize()
+                        }.padding(1)
+                        .frame(width: 350.0, height: 50.0,alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.white, lineWidth: 7)
+                        ).cornerRadius(10)
+                    }
+                }.padding()
+                
+                
+            }.onAppear(perform: {
+                if let user = Auth.auth().currentUser {
+                    uid = String(user.uid ?? "")
+                    name = String(user.displayName ?? "")
+                    email = String(user.email ?? "")
+                    characterImage = user.photoURL
+                    let db = Firestore.firestore()
+                    db.collection("users").whereField("uid", isEqualTo: "\(user.uid)").getDocuments { snapshot, error in
+                        
+                        guard let snapshot = snapshot else { return }
+                        
+                        let datas = snapshot.documents.compactMap { snapshot in
+                            try? snapshot.data(as: User.self)
+                        }
+                        money = datas[0].money
+                        age = datas[0].age
+                        switch datas[0].gender {
+                        case Gender.None:
+                            gender = "無"
+                        case Gender.Male:
+                            gender = "男性"
+                        case Gender.Female:
+                            gender = "女性"
+                        }
+                        created_at = datas[0].created_at ?? Date()
+                        updated_at = datas[0].updated_at ?? Date()
+                    }
+                    
+                    
+                    
+                } else {
+                    print("not login")
+                }
+            })
+        }
+        
         
     }
 }

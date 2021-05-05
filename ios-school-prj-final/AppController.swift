@@ -48,8 +48,7 @@ class User: ObservableObject,Codable, Identifiable {
         try container.encode(updated_at, forKey: .updated_at)
     }
     
-    @DocumentID var id: String?
-    @Published var uid : String = ""
+    @DocumentID var uid: String?
     @Published var age : Int = 0
     @Published var money : Int = 0
     @Published var gender : Gender
@@ -74,8 +73,7 @@ class User: ObservableObject,Codable, Identifiable {
         let db = Firestore.firestore()
         
         do {
-            let documentReference = try db.collection("users").addDocument(from: self)
-            print(documentReference.documentID)
+            let documentReference = try db.collection("users").document(uid!).setData(from: self)
             return true
         } catch {
             print(error)

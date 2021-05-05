@@ -14,51 +14,63 @@ struct LoginPage: View {
     @State var alertText:String = ""
     @Binding var currentPage : Page
     var body: some View {
-        VStack{
-            Text("登入").font(.system(size: 40)).padding(90)
-            Text(alertText).foregroundColor(.red)
-            TextField("email", text: $email)
-                .autocapitalization(.none)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            SecureField("password", text: $password)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
-                .frame(width: 300, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            Button(action: {
-                Auth.auth().signIn(withEmail: email, password: password) { result, error in
-                     guard error == nil else {
-                        print(error?.localizedDescription)
-                        alertText = error!.localizedDescription
-                        return
-                     }
-                    print("ok")
-                    currentPage = Page.HOME_PAGE
+        ZStack{
+            Image("backgroundimg")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack{
+                Image("Logo").resizable().scaledToFit().frame(width: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Text(alertText).foregroundColor(.red)
+                TextField("email", text: $email)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                    .frame(width: 300, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                SecureField("password", text: $password)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).fill(Color(.systemGray6)))
+                    .frame(width: 300, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Button(action: {
+                    Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                         guard error == nil else {
+                            print(error?.localizedDescription)
+                            alertText = error!.localizedDescription
+                            return
+                         }
+                        print("ok")
+                        currentPage = Page.HOME_PAGE
+                    }
+                }) {
+                    HStack {
+                        Text("登入")
+                    }
+                    .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                    .foregroundColor(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
+                    .cornerRadius(10)
+                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
-            }) {
-                HStack {
-                    Text("登入")
+                Button(action: {
+                    currentPage = Page.SIGN_UP_PAGE
+                }) {
+                    HStack {
+                        Text("註冊")
+                    }
+                    .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                    .foregroundColor(.white)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
+                    .cornerRadius(10)
+                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
-                .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
-                .foregroundColor(.white)
-                .background(Color(.systemPink))
-                .cornerRadius(10)
-                .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            }
-            Button(action: {
-                currentPage = Page.SIGN_UP_PAGE
-            }) {
-                HStack {
-                    Text("註冊")
-                }
-                .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
-                .foregroundColor(.white)
-                .background(Color(.systemPink))
-                .cornerRadius(10)
-                .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
         }
+     
     }
 }
 

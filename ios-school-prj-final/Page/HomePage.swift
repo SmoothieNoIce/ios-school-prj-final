@@ -14,21 +14,47 @@ struct HomePage: View {
     @State var name : String = "Flexolk"
     var body: some View {
         ZStack{
-            Color(.systemPink).ignoresSafeArea()
+            Image("backgroundimg")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             VStack{
                 
-                Text(name).font(.system(size: 40)).padding(90).colorInvert()
+                Image("Logo").resizable().scaledToFit().frame(width: 400, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                Button(action: {
+                    currentPage = Page.USER_INFO_PAGE
+                }) {
+                    HStack {
+                        Text("開始遊戲")
+                    }
+                    .padding()
+                    .frame(width: 120.0, height: 45.0,alignment: .center)
+                    .foregroundColor(.white)
+                    .background(Color.black)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
+                    .cornerRadius(10)
+                }.sheet(isPresented: $isPresentUserInfo,onDismiss:{
+                    currentPage = Page.HOME_PAGE
+                }, content: {
+                    UserInfoPage(currentPage:$currentPage)
+                })
                 Button(action: {
                     currentPage = Page.USER_INFO_PAGE
                 }) {
                     HStack {
                         Text("玩家資訊")
                     }
-                    .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                    .padding()
+                    .frame(width: 120.0, height: 45.0,alignment: .center)
                     .foregroundColor(.white)
-                    .background(Color(.systemGreen))
+                    .background(Color.black)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
                     .cornerRadius(10)
-                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }.sheet(isPresented: $isPresentUserInfo,onDismiss:{
                     currentPage = Page.HOME_PAGE
                 }, content: {
@@ -46,11 +72,15 @@ struct HomePage: View {
                     HStack {
                         Text("登出")
                     }
-                    .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                    .padding()
+                    .frame(width: 120.0, height: 45.0,alignment: .center)
                     .foregroundColor(.white)
-                    .background(Color(.systemGreen))
+                    .background(Color.black)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 5)
+                    )
                     .cornerRadius(10)
-                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
             }
         }.onAppear(perform: {

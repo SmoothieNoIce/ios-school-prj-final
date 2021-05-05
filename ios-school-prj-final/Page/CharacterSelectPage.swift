@@ -27,35 +27,41 @@ extension View {
 
 struct CharacterSelectPage: View {
     
-    let heads = ["Afro", "Medium Bangs", "Medium Straight", "Twists 2", "Twists"]
-    let emotes = ["Smile", "Smile Teeth Gap", "Smile Big", "Calm", "Angry with Fang"]
-    let bodys = ["crossed_arms-2", "easing-2", "polka_dots", "resting-1", "shirt-4"]
-    
-    @State var currentHead = 0
-    @State var currentEmote = 0
+    let hats = ["* None", "BAG", "CAT", "BANANA", "DOUBLE", "SIGN","BALLOON1","BAT","WOLF","WILDWEST","PAPER","HALO"]
+    let outfits = ["* None", "WHITESUIT", "JACKET", "BALLERINA", "HEARTS"]
+    let bodys = ["BASE", "BLACK", "RED", "GREEN", "ORANGE","YELLOW","WHITE","PURPLE","PINK","BLUE"]
+    let pets = ["* None", "MINI9", "DOG", "PEGASUS", "BRAINSLUG", "STICKWOMAN","ROBOT","HAMSTER","MINI5"]
+
+    @State var currentHat = 0
+    @State var currentOutfit = 0
     @State var currentBody = 0
+    @State var currentPet = 0
     @Binding var characterImage : UIImage
     
     @Binding var currentPage : Page
     
     var charaterView: some View {
         ZStack{
-            Image(heads[currentHead]).resizable()
-                .scaledToFit().frame(width: 110, height: 110, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 17, y: -175)
-            Image(emotes[currentEmote]).resizable()
-                .scaledToFit().frame(width: 55, height: 55, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 24, y: -160)
             Image(bodys[currentBody]).resizable()
-                .scaledToFit().frame(width: 250, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 25, y: 50)
-        }
+                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+            Image(hats[currentHat]).resizable()
+                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+            Image(outfits[currentOutfit]).resizable()
+                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+            Image(pets[currentPet]).resizable()
+                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: -20, y: 0)
+        }.frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
     
     var body: some View {
         ZStack{
-            Color(.systemPink).ignoresSafeArea()
+            Image("backgroundimg")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             VStack{
-                HStack{
+                VStack{
                     VStack( spacing: nil, content: {
-                        Text("角色製造機").font(.system(size: 24)).colorInvert()
+                        Text("角色製造機").font(.system(size: 40)).colorInvert()
                         Button(action: {
                             currentPage = Page.SIGN_UP_PAGE
                             characterImage = charaterView.snapshot()
@@ -73,14 +79,14 @@ struct CharacterSelectPage: View {
                 }.padding(.top,50)
                 VStack{
                     HStack{
-                        Text("頭部")
+                        Text("帽子").colorInvert()
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
-                                ForEach(heads.indices , id:\.self) { index in
+                                ForEach(hats.indices , id:\.self) { index in
                                     Button(action: {
-                                        currentHead = index
+                                        currentHat = index
                                     }){
-                                        Image(heads[index]).resizable()
+                                        Image(hats[index]).resizable()
                                             .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                     }
                                 }
@@ -88,14 +94,14 @@ struct CharacterSelectPage: View {
                         }
                     }
                     HStack{
-                        Text("臉部")
+                        Text("衣服").colorInvert()
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
-                                ForEach(emotes.indices , id:\.self) { index in
+                                ForEach(outfits.indices , id:\.self) { index in
                                     Button(action: {
-                                        currentEmote = index
+                                        currentOutfit = index
                                     }){
-                                        Image(emotes[index]).resizable()
+                                        Image(outfits[index]).resizable()
                                             .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                     }
                                 }
@@ -103,7 +109,7 @@ struct CharacterSelectPage: View {
                         }
                     }
                     HStack{
-                        Text("身體")
+                        Text("身體").colorInvert()
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 10) {
                                 ForEach(bodys.indices , id:\.self) { index in
@@ -116,6 +122,35 @@ struct CharacterSelectPage: View {
                                 }
                             }
                         }
+                    }
+                    HStack{
+                        Text("寵物").colorInvert()
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 10) {
+                                ForEach(pets.indices , id:\.self) { index in
+                                    Button(action: {
+                                        currentPet = index
+                                    }){
+                                        Image(pets[index]).resizable()
+                                            .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Button(action: {
+                        currentHat = Int.random(in: 0..<hats.count)
+                        currentOutfit = Int.random(in: 0..<outfits.count)
+                        currentBody = Int.random(in: 0..<bodys.count)
+                        currentPet = Int.random(in: 0..<pets.count)
+                    }) {
+                        HStack {
+                            Text("隨機")
+                        }
+                        .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
+                        .foregroundColor(.white)
+                        .background(Color(.systemGreen))
+                        .cornerRadius(10)
                     }
                 }.offset(x: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
             }
