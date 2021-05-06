@@ -18,6 +18,7 @@
 		473D0B9B2626D54D0023A94F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473D0B9A2626D54D0023A94F /* AppDelegate.swift */; };
 		4756C365264293BA00F793D1 /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4756C364264293BA00F793D1 /* GamePage.swift */; };
 		4778BF1E2642B26000A99F24 /* font1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4778BF1D2642B26000A99F24 /* font1.ttf */; };
+		477C1CBA2643FB0900067799 /* VCR OSD Mono 400.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 477C1CB92643FB0900067799 /* VCR OSD Mono 400.ttf */; };
 		47ECE35A263FB6DF005A2B2C /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE359263FB6DF005A2B2C /* LoginPage.swift */; };
 		47ECE35D263FB70C005A2B2C /* SignUpPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35C263FB70C005A2B2C /* SignUpPage.swift */; };
 		47ECE360263FBB7B005A2B2C /* CharacterSelectPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */; };
@@ -39,6 +40,7 @@
 		473D0B9A2626D54D0023A94F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4756C364264293BA00F793D1 /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		4778BF1D2642B26000A99F24 /* font1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = font1.ttf; sourceTree = "<group>"; };
+		477C1CB92643FB0900067799 /* VCR OSD Mono 400.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VCR OSD Mono 400.ttf"; sourceTree = "<group>"; };
 		47ECE359263FB6DF005A2B2C /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		47ECE35C263FB70C005A2B2C /* SignUpPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPage.swift; sourceTree = "<group>"; };
 		47ECE35F263FBB7B005A2B2C /* CharacterSelectPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectPage.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		4778BF1B2642B08000A99F24 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				477C1CB92643FB0900067799 /* VCR OSD Mono 400.ttf */,
 				4778BF1D2642B26000A99F24 /* font1.ttf */,
 			);
 			path = Resources;
@@ -201,6 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				477C1CBA2643FB0900067799 /* VCR OSD Mono 400.ttf in Resources */,
 				473D0B862626D07E0023A94F /* Preview Assets.xcassets in Resources */,
 				4778BF1E2642B26000A99F24 /* font1.ttf in Resources */,
 				473D0B8F2626D0FB0023A94F /* GoogleService-Info.plist in Resources */,

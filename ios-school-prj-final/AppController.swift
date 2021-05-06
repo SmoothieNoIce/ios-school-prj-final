@@ -121,6 +121,10 @@ struct AppController: View {
                 isPresentSignUp = false
                 isPresentCharacterSelect = false
                 isPresentUserInfo = true
+            }else if value == Page.HOME_PAGE{
+                isPresentSignUp = false
+                isPresentCharacterSelect = false
+                isPresentUserInfo = false
             }else{
                 isPresentSignUp = false
                 isPresentCharacterSelect = false

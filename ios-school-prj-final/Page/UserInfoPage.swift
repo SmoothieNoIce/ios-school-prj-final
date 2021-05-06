@@ -34,8 +34,14 @@ struct UserInfoPage: View {
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 
-                VStack(alignment: .leading, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
-                    Text("玩家資訊").padding(18).font(.system(size: 17))
+                HStack(alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+                    Text("PlayerInfo").padding(18).font(.custom("VCROSDMono", size: 18))
+                    Spacer()
+                    Button(action: {
+                        currentPage = Page.HOME_PAGE
+                    }) {
+                        Image(systemName: "multiply").resizable().scaledToFit().frame(width: 18, height: 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding()
+                    }.foregroundColor(.black)
                 }).frame(maxWidth: .infinity,alignment: .leading).background(Color(.white))
                 
                 
@@ -55,7 +61,7 @@ struct UserInfoPage: View {
                             Image(systemName: "grid").padding(.leading,20)
                             Text("uid：\(uid)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }
                         .padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
@@ -69,9 +75,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "person.crop.circle").padding(.leading,20)
-                            Text("名字：\(name)")
+                            Text("Name：\(name)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }
                         .padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
@@ -84,9 +90,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "envelope").padding(.leading,20)
-                            Text("電子郵件：\(email)")
+                            Text("Email：\(email)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -98,9 +104,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "dollarsign.circle").padding(.leading,20)
-                            Text("金錢：\(money)")
+                            Text("Money：\(money)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -112,9 +118,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "figure.walk").padding(.leading,20)
-                            Text("年齡：\(age)")
+                            Text("Age：\(age)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -126,9 +132,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "face.smiling").padding(.leading,20)
-                            Text("性別：\(gender)")
+                            Text("Gender：\(gender)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -140,9 +146,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "clock").padding(.leading,20)
-                            Text("創建時間：\(created_at)")
+                            Text("Created：\(created_at)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -154,9 +160,9 @@ struct UserInfoPage: View {
                         
                         HStack{
                             Image(systemName: "clock").padding(.leading,20)
-                            Text("創建時間：\(updated_at)")
+                            Text("Updated：\(updated_at)")
                                 .multilineTextAlignment(.leading)
-                                .fixedSize()
+                                .fixedSize().font(.custom("VCROSDMono", size: 18))
                         }.padding(1)
                         .frame(width: 350.0, height: 50.0,alignment: .leading)
                         .foregroundColor(.white)
@@ -187,11 +193,11 @@ struct UserInfoPage: View {
                         age = datas[0].age
                         switch datas[0].gender {
                         case Gender.None:
-                            gender = "無"
+                            gender = "None"
                         case Gender.Male:
-                            gender = "男性"
+                            gender = "Male"
                         case Gender.Female:
-                            gender = "女性"
+                            gender = "Female"
                         }
                         created_at = datas[0].created_at ?? Date()
                         updated_at = datas[0].updated_at ?? Date()

@@ -28,7 +28,7 @@ extension View {
 struct CharacterSelectPage: View {
     
     let hats = ["* None", "BAG", "CAT", "BANANA", "DOUBLE", "SIGN","BALLOON1","BAT","WOLF","WILDWEST","PAPER","HALO"]
-    let outfits = ["* None", "WHITESUIT", "JACKET", "BALLERINA", "HEARTS"]
+    let outfits = ["* None", "WHITESUIT", "JACKET", "BALLERINA", "HEARTS","LATEX","DOCTOR","ALICE","WHITERABBIT","POLICE","MECHANIC"]
     let bodys = ["BASE", "BLACK", "RED", "GREEN", "ORANGE","YELLOW","WHITE","PURPLE","PINK","BLUE"]
     let pets = ["* None", "MINI9", "DOG", "PEGASUS", "BRAINSLUG", "STICKWOMAN","ROBOT","HAMSTER","MINI5"]
 
@@ -36,6 +36,7 @@ struct CharacterSelectPage: View {
     @State var currentOutfit = 0
     @State var currentBody = 0
     @State var currentPet = 0
+    @State var outfitColor = Color(.white).opacity(1)
     @Binding var characterImage : UIImage
     
     @Binding var currentPage : Page
@@ -43,13 +44,13 @@ struct CharacterSelectPage: View {
     var charaterView: some View {
         ZStack{
             Image(bodys[currentBody]).resizable()
-                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+                .scaledToFit().frame(width: 280, height: 280, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
             Image(hats[currentHat]).resizable()
-                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+                .scaledToFit().frame(width: 280, height: 280, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
             Image(outfits[currentOutfit]).resizable()
-                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0)
+                .scaledToFit().frame(width: 280, height: 280, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: 0, y: 0).colorMultiply(outfitColor)
             Image(pets[currentPet]).resizable()
-                .scaledToFit().frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: -20, y: 0)
+                .scaledToFit().frame(width: 280, height: 280, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).offset(x: -20, y: 0)
         }.frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
     
@@ -58,16 +59,39 @@ struct CharacterSelectPage: View {
             Image("backgroundimg")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+           
             VStack{
+                
                 VStack{
                     VStack( spacing: nil, content: {
-                        Text("角色製造機").font(.system(size: 40)).colorInvert()
+                        Text("Crewmate Generator").font(.custom("VCROSDMono", size: 30)).colorInvert()
+                    })
+                    charaterView
+                    HStack{
+                        Button(action: {
+                            currentHat = Int.random(in: 0..<hats.count)
+                            currentOutfit = Int.random(in: 0..<outfits.count)
+                            currentBody = Int.random(in: 0..<bodys.count)
+                            currentPet = Int.random(in: 0..<pets.count)
+                        }) {
+                            HStack {
+                                Image(systemName: "die.face.3")
+                                Text("Random").font(.custom("VCROSDMono", size: 18))
+                            }
+                            .padding(.trailing,20).padding(.leading,20).padding(.top,10).padding(.bottom,10)
+                            .foregroundColor(.white)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.white, lineWidth: 5)
+                            )
+                            .cornerRadius(10)
+                        }
                         Button(action: {
                             currentPage = Page.SIGN_UP_PAGE
                             characterImage = charaterView.snapshot()
                         }) {
                             HStack {
-                                Text("確定")
+                                Text("ok").font(.custom("VCROSDMono", size: 18))
                             }
                             .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
                             .foregroundColor(.white)
@@ -77,89 +101,78 @@ struct CharacterSelectPage: View {
                             )
                             .cornerRadius(10)
                         }
-                    })
-                    charaterView
+                    }
                 }.padding(.top,50)
-                VStack{
-                    HStack{
-                        Text("帽子").colorInvert()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 10) {
-                                ForEach(hats.indices , id:\.self) { index in
-                                    Button(action: {
-                                        currentHat = index
-                                    }){
-                                        Image(hats[index]).resizable()
-                                            .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                
+                ScrollView{
+                    VStack{
+                        HStack{
+                            Text("Hat").colorInvert().font(.custom("VCROSDMono", size: 18))
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    ForEach(hats.indices , id:\.self) { index in
+                                        Button(action: {
+                                            currentHat = index
+                                        }){
+                                            Image(hats[index]).resizable()
+                                                .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    HStack{
-                        Text("衣服").colorInvert()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 10) {
-                                ForEach(outfits.indices , id:\.self) { index in
-                                    Button(action: {
-                                        currentOutfit = index
-                                    }){
-                                        Image(outfits[index]).resizable()
-                                            .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        HStack{
+                            Text("Outfit").colorInvert().font(.custom("VCROSDMono", size: 18))
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    ForEach(outfits.indices , id:\.self) { index in
+                                        Button(action: {
+                                            currentOutfit = index
+                                        }){
+                                            Image(outfits[index]).resizable()
+                                                .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        }
+                                    }
+                                }
+                            }
+                         
+                        }
+                        HStack{
+                            Text("Body").colorInvert().font(.custom("VCROSDMono", size: 18))
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    ForEach(bodys.indices , id:\.self) { index in
+                                        Button(action: {
+                                            currentBody = index
+                                        }){
+                                            Image(bodys[index]).resizable()
+                                                .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    HStack{
-                        Text("身體").colorInvert()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 10) {
-                                ForEach(bodys.indices , id:\.self) { index in
-                                    Button(action: {
-                                        currentBody = index
-                                    }){
-                                        Image(bodys[index]).resizable()
-                                            .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        HStack{
+                            Text("Pet").colorInvert().font(.custom("VCROSDMono", size: 18))
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10) {
+                                    ForEach(pets.indices , id:\.self) { index in
+                                        Button(action: {
+                                            currentPet = index
+                                        }){
+                                            Image(pets[index]).resizable()
+                                                .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    HStack{
-                        Text("寵物").colorInvert()
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 10) {
-                                ForEach(pets.indices , id:\.self) { index in
-                                    Button(action: {
-                                        currentPet = index
-                                    }){
-                                        Image(pets[index]).resizable()
-                                            .scaledToFit().frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Button(action: {
-                        currentHat = Int.random(in: 0..<hats.count)
-                        currentOutfit = Int.random(in: 0..<outfits.count)
-                        currentBody = Int.random(in: 0..<bodys.count)
-                        currentPet = Int.random(in: 0..<pets.count)
-                    }) {
-                        HStack {
-                            Image(systemName: "die.face.3")
-                            Text("隨機")
-                        }
-                        .padding(.trailing,20).padding(.leading,20).padding(.top,10).padding(.bottom,10)
-                        .foregroundColor(.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.white, lineWidth: 5)
-                        )
-                        .cornerRadius(10)
-                    }
-                }.offset(x: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
+                        ColorPicker("Color of outfit", selection: $outfitColor, supportsOpacity: false).foregroundColor(Color.white).font(.custom("VCROSDMono", size: 18))
+                                     
+                    }.padding()
+                    
+                   
+                }
             }
         }
     }

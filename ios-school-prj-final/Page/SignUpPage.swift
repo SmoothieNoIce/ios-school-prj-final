@@ -23,15 +23,6 @@ struct SignUpPage: View {
     var roles : [Gender] = [Gender.None, Gender.Male, Gender.Female]
     @State private var selectedIndex = 0
     
-    var textView: some View {
-        Text("Hello, SwiftUI")
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
-    }
-    
-    
     var body: some View {
         ZStack{
             Image("backgroundimg")
@@ -39,14 +30,20 @@ struct SignUpPage: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack{
-                VStack(alignment: .leading, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
-                    Text("註冊").padding(18).font(.system(size: 17))
+                HStack(alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+                    Text("Sign up").padding(18).font(.custom("VCROSDMono", size: 18))
+                    Spacer()
+                    Button(action: {
+                        currentPage = Page.LOGIN_PAGE
+                    }) {
+                        Image(systemName: "multiply").resizable().scaledToFit().frame(width: 18, height: 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).padding()
+                    }.foregroundColor(.black)
                 }).frame(maxWidth: .infinity,alignment: .leading).background(Color(.white))
                                        
                 Spacer()
                 
                 VStack{
-                    
+                    Text("New Crewmate").font(.custom("VCROSDMono", size: 30)).colorInvert()
                     Text(alertText).foregroundColor(.red)
                     Image(uiImage: characterImage).resizable()
                         .scaledToFit().frame(width: 200,height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -54,7 +51,7 @@ struct SignUpPage: View {
                         currentPage = Page.CHARACTER_SELECT_PAGE
                     }) {
                         HStack {
-                            Text("選擇角色")
+                            Text("Select Character").font(.custom("VCROSDMono", size: 14))
                         }
                         .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
                         .foregroundColor(.white)
@@ -70,7 +67,7 @@ struct SignUpPage: View {
                         CharacterSelectPage(characterImage: $characterImage, currentPage:$currentPage)
                     })
                     HStack{
-                        Text("名稱:").padding(.leading,20)
+                        Text("Name:").padding(.leading,20).font(.custom("VCROSDMono", size: 18))
                         TextField("name", text: $name)
                             .padding(.leading,5)
                             .foregroundColor(.white)
@@ -84,7 +81,7 @@ struct SignUpPage: View {
                     ).cornerRadius(10)
                     
                     HStack{
-                        Text("電子郵件:").padding(.leading,20)
+                        Text("Email:").padding(.leading,20).font(.custom("VCROSDMono", size: 18))
                         TextField("name", text: $email)
                             .padding(.leading,5)
                             .autocapitalization(.none)
@@ -99,7 +96,7 @@ struct SignUpPage: View {
                     ).cornerRadius(10)
                     
                     HStack{
-                        Text("密碼:").padding(.leading,20)
+                        Text("Password:").padding(.leading,20).font(.custom("VCROSDMono", size: 18))
                         SecureField("password", text: $password)
                             .padding(.leading,5)
                             .autocapitalization(.none)
@@ -115,9 +112,9 @@ struct SignUpPage: View {
                     
                     
                     HStack{
-                        Text("年齡").colorInvert()
+                        Text("Age").font(.custom("VCROSDMono", size: 18)).colorInvert()
                         Slider(value: $age, in: 0...100, step: 1)
-                        Text(String(Int(age))).colorInvert()
+                        Text(String(Int(age))).font(.custom("VCROSDMono", size: 18)).colorInvert()
                     }.padding(20).frame(width: 300, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                         RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.white, lineWidth: 4)
@@ -130,11 +127,11 @@ struct SignUpPage: View {
                             ForEach(roles.indices) { (index) in
                                 switch(roles[index]){
                                 case .None:
-                                    Text("無")
+                                    Text("Nome")
                                 case .Male:
-                                    Text("男生")
+                                    Text("Male")
                                 case .Female:
-                                    Text("女生")
+                                    Text("Female")
                                 }
                             }
                         }.pickerStyle(SegmentedPickerStyle())
@@ -156,7 +153,7 @@ struct SignUpPage: View {
                         }
                     }, label: {
                         HStack {
-                            Text("送出")
+                            Text("Submit").font(.custom("VCROSDMono", size: 18))
                         }
                         .padding(.trailing,30).padding(.leading,30).padding(.top,10).padding(.bottom,10)
                         .foregroundColor(.white)

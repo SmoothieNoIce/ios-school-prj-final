@@ -24,7 +24,7 @@ struct HomePage: View {
                     currentPage = Page.USER_INFO_PAGE
                 }) {
                     HStack {
-                        Text("開始遊戲")
+                        Text("Start").font(.custom("VCROSDMono", size: 18))
                     }
                     .padding()
                     .frame(width: 120.0, height: 45.0,alignment: .center)
@@ -44,10 +44,9 @@ struct HomePage: View {
                     currentPage = Page.USER_INFO_PAGE
                 }) {
                     HStack {
-                        Text("玩家資訊")
+                        Text("Player Info").font(.custom("VCROSDMono", size: 18))
                     }
                     .padding()
-                    .frame(width: 120.0, height: 45.0,alignment: .center)
                     .foregroundColor(.white)
                     .background(Color.black)
                     .overlay(
@@ -70,7 +69,7 @@ struct HomePage: View {
                     
                 }) {
                     HStack {
-                        Text("登出")
+                        Text("Logout").font(.custom("VCROSDMono", size: 18))
                     }
                     .padding()
                     .frame(width: 120.0, height: 45.0,alignment: .center)
