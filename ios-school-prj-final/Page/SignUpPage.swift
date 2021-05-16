@@ -23,6 +23,8 @@ struct SignUpPage: View {
     var roles : [Gender] = [Gender.None, Gender.Male, Gender.Female]
     @State private var selectedIndex = 0
     
+    @StateObject var gameUserViewModel = GameUserViewModel()
+    
     var body: some View {
         ZStack{
             Image("backgroundimg")
@@ -192,8 +194,10 @@ struct SignUpPage: View {
                    return
                }
             })
-            let data : GameUser = GameUser(uid:user.uid,age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
-            data.createUser()
+            let avatar = try? String(contentsOf: imgUrl)
+
+            let data : GameUser = GameUser(id: user.uid, name: user.displayName, avatar: avatar, email: user.email, age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
+            gameUserViewModel.createUser(user: user, gameUser: data)
             currentPage = Page.HOME_PAGE
         }
     }

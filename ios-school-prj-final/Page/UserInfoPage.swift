@@ -16,6 +16,7 @@ import Kingfisher
 
 struct UserInfoPage: View {
     @Binding var currentPage : Page
+    @State var gameUserViewModel = GameUserViewModel()
     @State var alertText:String = ""
     @State var uid:String = ""
     @State var name:String = ""
@@ -181,28 +182,27 @@ struct UserInfoPage: View {
                     name = String(user.displayName ?? "")
                     email = String(user.email ?? "")
                     characterImage = user.photoURL
-                    let db = Firestore.firestore()
-                    db.collection("users").whereField("uid", isEqualTo: "\(user.uid)").getDocuments { snapshot, error in
-                        
-                        guard let snapshot = snapshot else { return }
-                        
-                        let datas = snapshot.documents.compactMap { snapshot in
-                            try? snapshot.data(as: GameUser.self)
-                        }
-                        money = datas[0].money
-                        age = datas[0].age
-                        switch datas[0].gender {
-                        case Gender.None:
-                            gender = "None"
-                        case Gender.Male:
-                            gender = "Male"
-                        case Gender.Female:
-                            gender = "Female"
-                        }
-                        created_at = datas[0].created_at ?? Date()
-                        updated_at = datas[0].updated_at ?? Date()
-                    }
                     
+                    gameUserViewModel.getUser(user: user, completion: { res in
+                        switch res {
+                            case .success(let u):
+                                money = u.money ?? 0
+                                age = u.age ?? 0
+                                let gen : Gender = u.gender ?? Gender.None
+                                switch gen {
+                                case Gender.None:
+                                    gender = "None"
+                                case Gender.Male:
+                                    gender = "Male"
+                                case Gender.Female:
+                                    gender = "Female"
+                                }
+                                created_at = u.created_at ?? Date()
+                                updated_at = u.updated_at ?? Date()
+                            case .failure(let error):
+                                print(error)
+                            }
+                    })
                     
                     
                 } else {
