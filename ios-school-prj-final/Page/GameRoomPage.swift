@@ -14,6 +14,8 @@ struct GameRoomPage: View {
     @Binding var currentPage : Page
     @Binding var createNewRoom:Bool
     @ObservedObject var roomViewModel = GameRoomViewModel()
+    @StateObject var userViewModel = GameUserViewModel()
+    @State var members = [GameUser]()
     
     var body: some View {
         ZStack{
@@ -48,10 +50,10 @@ struct GameRoomPage: View {
                         .stroke(Color.white, lineWidth: 7)
                 ).cornerRadius(10)
                 
-                ForEach(roomViewModel.gameRoom?.room_members?.indices ?? [].indices, id:\.self){index in
+                ForEach(members.indices, id:\.self){index in
                     HStack{
                         Image(systemName: "grid").padding(.leading,20)
-                        Text("\(roomViewModel.gameRoom?.room_members?[index] ?? "")")
+                        Text("\(members[index].name ?? "")")
                             .multilineTextAlignment(.leading)
                             .fixedSize().font(.custom("VCROSDMono", size: 18))
                     }
@@ -90,6 +92,23 @@ struct GameRoomPage: View {
                 if let user = Auth.auth().currentUser {
                     roomViewModel.leaveRoom(user: user)
                 }
+            }
+        }).onReceive(roomViewModel.$gameRoom, perform: { value in
+            if value?.id == "-1"{
+                currentPage = Page.HOME_PAGE
+            }
+            let room_members : [String] = value?.room_members ?? []
+            members = []
+            for m in room_members{
+                userViewModel.getUserByID(uid: m, completion: { result in
+                    members = []
+                    switch result {
+                        case .success(let user):
+                            members.append(user)
+                        case .failure(let error):
+                            print(error)
+                        }
+                })
             }
         })
     }

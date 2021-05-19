@@ -58,18 +58,15 @@ class GameUserViewModel: ObservableObject {
 
     func getUserByID(uid:String,completion: @escaping (Result<GameUser,GetUserResult>)-> Void) -> Void {
         let db = Firestore.firestore()
-        
-        db.collection("users").whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
-            
-            guard let snapshot = snapshot else { return }
-            
-            let datas = snapshot.documents.compactMap { snapshot in
-                try? snapshot.data(as: GameUser.self)
+        db.collection("users").document(uid).getDocument(completion: { snapshot, error in
+            if error != nil{
+                completion(.failure(.FAILED))
             }
+            guard let snapshot = snapshot else { return }
+            let data = try? snapshot.data(as: GameUser.self)
+            completion(.success(data!))
             
-            let data = datas[0]
-            completion(.success(data))
-        }
+        })
     }
 
 }

@@ -194,9 +194,9 @@ struct SignUpPage: View {
                    return
                }
             })
-            let avatar = try? String(contentsOf: imgUrl)
+            let avatar:String = imgUrl.absoluteString
 
-            let data : GameUser = GameUser(id: user.uid, name: user.displayName, avatar: avatar, email: user.email, age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
+            let data : GameUser = GameUser(id: user.uid, name: name, avatar: avatar, email: email, age: Int(age), money: 0, gender: roles[selectedIndex], created_at: Date(), updated_at: Date())
             gameUserViewModel.createUser(user: user, gameUser: data)
             currentPage = Page.HOME_PAGE
         }

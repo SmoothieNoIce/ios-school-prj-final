@@ -33,10 +33,23 @@ class GameRoomViewModel: ObservableObject {
     }
     
     func fetchChanges() {
-        store.collection("rooms").document("\(gameRoom?.id)").addSnapshotListener { snapshot, error in
+        store.collection("rooms").addSnapshotListener { snapshot, error in
             guard let snapshot = snapshot else { return }
-            guard let room = try? snapshot.data(as: GameRoom.self) else {return}
-            self.gameRoom = room
+            snapshot.documentChanges.forEach { documentChange in
+                guard let room = try? documentChange.document.data(as: GameRoom.self) else { return }
+                switch documentChange.type {
+                case .added:
+                    break
+                case .modified:
+                    if room.id == self.gameRoom?.id {
+                        self.gameRoom = room
+                    }
+                case .removed:
+                    if room.id == self.gameRoom?.id {
+                        self.gameRoom?.id = "-1"
+                    }
+                }
+            }
         }
     }
     
